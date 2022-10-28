@@ -14,6 +14,7 @@ def conectar():
 def adicionar_continente():
     return Model.adicionar_continente()
 
+
 @blueprint_continente.route("/atualizar_continente", methods = ["PUT"])
 def atualizar_continente():
     content_type = request.headers.get('Content-Type')
