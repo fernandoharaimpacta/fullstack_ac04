@@ -14,24 +14,9 @@ def conectar():
 def adicionar_continente():
     return Model.adicionar_continente()
 
-
 @blueprint_continente.route("/atualizar_continente", methods = ["PUT"])
 def atualizar_continente():
-    content_type = request.headers.get('Content-Type')
-    json = ""
-    if (content_type == 'application/json'):
-        json = request.json
-    if json == "":
-        return {"sucesso": False, "mensagem": "Formato de dados incorretos"}, 400
-    else:
-        try:
-            with closing(conectar()) as con, closing(con.cursor()) as cursor:
-                sql = "UPDATE CONTINENTE SET nome = ? WHERE continente_id = ?"
-                cursor.execute(sql, [json["nome"], json["id"]])
-                con.commit()
-                return {"sucesso": True, "continente": json}, 200
-        except Exception:
-            return {"sucesso": False, "mensagem": "O servidor não está se comportando bem"}, 500
+    return Model.atualizar_continente()
 
 @blueprint_continente.route("/consultar_continente_id/<int:continente_id>", methods = ["GET"])
 def consultar_continente_id(continente_id):
